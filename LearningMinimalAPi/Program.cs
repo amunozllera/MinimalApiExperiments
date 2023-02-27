@@ -7,11 +7,15 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
+services.AddApiAuthentication(builder.Configuration);
 services.AddEndpointsApiExplorer();
 services.AddVersioning();
 
 services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
-services.AddSwaggerGen(options => options.OperationFilter<SwaggerDefaultValues>());
+services.AddSwaggerGen(options => {
+    options.AddSecurityDefinition("bearer", Authentication.GetSwaggerSecuritySchema());
+    options.OperationFilter<SwaggerDefaultValues>();
+});
 
 var app = builder.Build();
 var versionSet = app.InstanceVersionSet();
@@ -20,6 +24,9 @@ app.MapV1Endpoints(versionSet);
 app.MapV2Endpoints(versionSet);
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseSwagger();
 app.UseSwaggerUI(options =>

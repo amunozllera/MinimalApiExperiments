@@ -11,7 +11,23 @@ namespace LearningMinimalAPi.Startup
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             var apiDescription = context.ApiDescription;
+            var metadata = apiDescription.ActionDescriptor.EndpointMetadata;
 
+            if (metadata.Where(c => c.GetType() == typeof(Microsoft.AspNetCore.Authorization.AuthorizeAttribute)).Any())
+                operation.Security.Add(new OpenApiSecurityRequirement()
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            new string[] {}
+                        }
+                    });
             operation.Deprecated |= apiDescription.IsDeprecated();
 
             foreach (var responseType in context.ApiDescription.SupportedResponseTypes)

@@ -1,4 +1,7 @@
 ﻿using Asp.Versioning.Builder;
+using LearningMinimalAPi.Models.Authentication;
+using LearningMinimalAPi.UseCases.Authentication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LearningMinimalAPi.Controllers.v2
 {
@@ -12,8 +15,8 @@ namespace LearningMinimalAPi.Controllers.v2
                 .HasApiVersion(2.0)
                 .MapToApiVersion(2.0);
 
-            group.MapGet("login", () => "Hello Putito!!"); 
-            group.MapGet("logout", () => "Hello World!!");
+            group.MapPost("login", Login.UserLogin); 
+            group.MapGet("logout", [Authorize] (string email) => "Hello World!!");
 
             return group;
         }

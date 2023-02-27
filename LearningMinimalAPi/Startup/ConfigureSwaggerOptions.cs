@@ -10,7 +10,9 @@ namespace LearningMinimalAPi.Startup
     public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
     {
         private readonly IApiVersionDescriptionProvider provider;
+        
         public ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider) => this.provider = provider;
+        
         public void Configure(SwaggerGenOptions options)
         {
             foreach (var description in provider.ApiVersionDescriptions)
@@ -21,13 +23,13 @@ namespace LearningMinimalAPi.Startup
 
         private static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
         {
-            var text = new StringBuilder("An example application with OpenAPI, Swashbuckle, and API versioning.");
+            var text = new StringBuilder("");
             var info = new OpenApiInfo()
             {
-                Title = "Example API",
+                Title = "Minimal API",
                 Version = description.ApiVersion.ToString(),
-                Contact = new OpenApiContact() { Name = "Bill Mei", Email = "bill.mei@somewhere.com" },
-                License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
+                Contact = new OpenApiContact() { Name = "Adrián Muñoz", Email = "amunozllera@gmail.com" },
+                License = new OpenApiLicense() { Name = "Apache2", Url = new Uri("https://www.apache.org/licenses/LICENSE-2.0") }
             };
 
             if (description.IsDeprecated)
