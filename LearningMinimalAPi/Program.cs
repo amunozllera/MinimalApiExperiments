@@ -1,12 +1,12 @@
-using LearningMinimalAPi.Controllers.v1;
-using LearningMinimalAPi.Controllers.v2;
-using LearningMinimalAPi.Startup;
+using MinimalApi.Controllers.v1;
+using MinimalApi.Controllers.v2;
+using MinimalApi.Startup;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddLogging();
+var logger = builder.AddLogging();
 
 var services = builder.Services;
 services.AddApiAuthentication(builder.Configuration);
@@ -42,5 +42,13 @@ app.UseSwaggerUI(options =>
         options.SwaggerEndpoint(url, name);
     }
 });
-
-app.Run();
+try
+{
+    logger.Information("Starting app...\n");
+    app.Run();
+    logger.Information("Started app\n");
+}
+catch (Exception e)
+{
+    logger.Error($"Application don't start by {e}");
+}

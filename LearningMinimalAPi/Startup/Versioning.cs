@@ -1,7 +1,7 @@
 ﻿using Asp.Versioning;
 using Asp.Versioning.Builder;
 
-namespace LearningMinimalAPi.Startup
+namespace MinimalApi.Startup
 {
     public static class Versioning
     {

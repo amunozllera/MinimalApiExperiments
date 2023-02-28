@@ -1,12 +1,10 @@
 ﻿using Serilog;
-using Serilog.Events;
-using ILogger = Serilog.ILogger;
 
-namespace LearningMinimalAPi.Startup
+namespace MinimalApi.Startup
 {
     public static class Logging
     {
-        public static void AddLogging(this WebApplicationBuilder builder)
+        public static Serilog.Core.Logger AddLogging(this WebApplicationBuilder builder)
         {
             builder.Logging.ClearProviders();
             var logger = new LoggerConfiguration()
@@ -14,11 +12,7 @@ namespace LearningMinimalAPi.Startup
                 .CreateLogger();
             builder.Logging.AddSerilog(logger);
             builder.Host.UseSerilog(logger);
-        }
-
-        public static void AddLoggingSingleton(this IServiceCollection services)
-        {
-            //services.AddSingleton<ILogger, Logger>();
+            return logger;
         }
     }
 }

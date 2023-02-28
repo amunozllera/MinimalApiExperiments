@@ -1,11 +1,11 @@
-﻿using LearningMinimalAPi.Models.Authentication;
+﻿using MinimalApi.Models.Authentication;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace LearningMinimalAPi.UseCases.Authentication
+namespace MinimalApi.UseCases.Authentication
 {
     public static class Login
     {

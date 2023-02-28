@@ -1,4 +1,4 @@
-﻿namespace LearningMinimalAPi.Models.Authentication
+﻿namespace MinimalApi.Models.Authentication
 {
     public class LoginDto
     {

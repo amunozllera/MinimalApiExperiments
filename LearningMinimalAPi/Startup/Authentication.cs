@@ -3,7 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
-namespace LearningMinimalAPi.Startup
+namespace MinimalApi.Startup
 {
     public static class Authentication
     {

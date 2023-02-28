@@ -1,8 +1,8 @@
 ﻿using Asp.Versioning.Builder;
-using LearningMinimalAPi.UseCases.Authentication;
+using MinimalApi.UseCases.Authentication;
 using Microsoft.AspNetCore.Authorization;
 
-namespace LearningMinimalAPi.Controllers.v2
+namespace MinimalApi.Controllers.v2
 {
     public static class AuthController
     {

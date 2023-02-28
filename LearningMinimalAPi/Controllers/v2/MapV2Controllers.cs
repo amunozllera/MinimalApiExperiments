@@ -1,6 +1,6 @@
 ﻿using Asp.Versioning.Builder;
 
-namespace LearningMinimalAPi.Controllers.v2
+namespace MinimalApi.Controllers.v2
 {
     public static class MapV2Controllers
     {
