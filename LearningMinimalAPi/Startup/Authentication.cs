@@ -10,37 +10,35 @@ namespace LearningMinimalAPi.Startup
         public static void AddApiAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddAuthentication(options =>
-                {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"])),
                         ValidIssuer = configuration["Jwt:Issuer"],
                         ValidAudience = configuration["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"])),
+                        ValidateIssuerSigningKey = true,
                         ValidateIssuer = true,
                         ValidateAudience = true,
-                        ValidateLifetime = false,
-                        ValidateIssuerSigningKey = true
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
                     };
+                    options.SaveToken = true;
                 });
             services.AddAuthorization();
         }
 
         public static OpenApiSecurityScheme GetSwaggerSecuritySchema() =>
-            new OpenApiSecurityScheme()
+            new OpenApiSecurityScheme
             {
                 Name = "Authorization",
                 Type = SecuritySchemeType.ApiKey,
+                In = ParameterLocation.Header,
                 Scheme = "Bearer",
                 BearerFormat = "JWT",
-                In = ParameterLocation.Header,
-                Description = "JSON Web Token based security",
+                Description =
+                "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
             };
     }
 }

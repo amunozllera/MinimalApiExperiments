@@ -1,5 +1,4 @@
 ﻿using Asp.Versioning.Builder;
-using LearningMinimalAPi.Models.Authentication;
 using LearningMinimalAPi.UseCases.Authentication;
 using Microsoft.AspNetCore.Authorization;
 
@@ -13,10 +12,12 @@ namespace LearningMinimalAPi.Controllers.v2
                 .MapGroup("api/v{version:apiVersion}/auth")
                 .WithApiVersionSet(versionSet)
                 .HasApiVersion(2.0)
-                .MapToApiVersion(2.0);
+                .MapToApiVersion(2.0)
+                .WithOpenApi()
+                .WithDisplayName("Auth");
 
-            group.MapPost("login", Login.UserLogin); 
-            group.MapGet("logout", [Authorize] (string email) => "Hello World!!");
+            group.MapPost("login", Login.Handle); 
+            group.MapGet("logout", [Authorize] async (string email) => "Hello World!!");
 
             return group;
         }

@@ -9,9 +9,9 @@ namespace LearningMinimalAPi.UseCases.Authentication
 {
     public static class Login
     {
-        public static async Task<Results<Ok<string>, ForbidHttpResult>> UserLogin(LoginDto data, IConfiguration configuration)
+        public static async Task<Results<Ok<string>, ForbidHttpResult>> Handle(LoginDto data, IConfiguration configuration)
         {
-            if(data.Email == "amunozllera@gmail.com" && data.Password == "123")
+            if(data.Email == "a" && data.Password == "a")
             {
                 var issuer = configuration["Jwt:Issuer"];
                 var audience = configuration["Jwt:Audience"];

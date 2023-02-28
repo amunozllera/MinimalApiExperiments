@@ -13,7 +13,7 @@ services.AddVersioning();
 
 services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 services.AddSwaggerGen(options => {
-    options.AddSecurityDefinition("bearer", Authentication.GetSwaggerSecuritySchema());
+    options.AddSecurityDefinition("Bearer", Authentication.GetSwaggerSecuritySchema());
     options.OperationFilter<SwaggerDefaultValues>();
 });
 
@@ -23,10 +23,10 @@ var versionSet = app.InstanceVersionSet();
 app.MapV1Endpoints(versionSet);
 app.MapV2Endpoints(versionSet);
 
-app.UseHttpsRedirection();
-
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseHttpsRedirection();
 
 app.UseSwagger();
 app.UseSwaggerUI(options =>
