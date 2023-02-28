@@ -5,8 +5,10 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
-var services = builder.Services;
 
+builder.AddLogging();
+
+var services = builder.Services;
 services.AddApiAuthentication(builder.Configuration);
 services.AddEndpointsApiExplorer();
 services.AddVersioning();

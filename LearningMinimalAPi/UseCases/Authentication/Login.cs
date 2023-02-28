@@ -9,7 +9,7 @@ namespace LearningMinimalAPi.UseCases.Authentication
 {
     public static class Login
     {
-        public static async Task<Results<Ok<string>, ForbidHttpResult>> Handle(LoginDto data, IConfiguration configuration)
+        public static async Task<Results<Ok<string>, ForbidHttpResult>> Handle(LoginDto data, IConfiguration configuration, Serilog.ILogger logger)
         {
             if(data.Email == "a" && data.Password == "a")
             {
